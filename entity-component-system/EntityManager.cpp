@@ -11,7 +11,7 @@ EntityManager::~EntityManager() { }
 
 inline unsigned __int32 make_component_id(unsigned __int16 desc, unsigned __int16 type)
 {
-    unsigned __int32 comp_id = render;
+    unsigned __int32 comp_id = type;
     comp_id |= (desc << 16);
     return comp_id;
 }
@@ -32,7 +32,8 @@ void EntityManager::add_entity(component_type cts[NUM_COMPONENTS])
         case render:
         {
             m_render_components[m_num_render_components] = RenderComponent(m_entities[m_num_entities].id);
-            m_entities[m_num_entities].components[i] = make_component_id(++m_num_render_components, render);
+            m_entities[m_num_entities].components[i] = make_component_id(m_num_render_components, render);
+            m_num_render_components++;
             
             break;
         }
@@ -41,18 +42,17 @@ void EntityManager::add_entity(component_type cts[NUM_COMPONENTS])
     m_num_entities++;
 }
 
-inline entity EntityManager::get_entity(unsigned __int16 id)
+entity EntityManager::get_entity(unsigned __int16 id)
 {
     return m_entities[id];
 }
 
-void EntityManager::remove_entity(entity &e)
+void EntityManager::remove_entity(entity e)
 {
-    // call the destructor for all the components
     for (unsigned __int8 i = 0; i < NUM_COMPONENTS; i++)
     {
         unsigned __int32 comp_id = e.components[i];
-        unsigned __int16 comp_type = (comp_id |= 0xFF);
+        unsigned __int16 comp_type = comp_id;
         unsigned __int16 comp_index = (comp_id >> 16);
 
         switch(comp_type)

@@ -12,7 +12,6 @@ public:
     RenderComponent();
     RenderComponent(unsigned __int16 entity_id);
     ~RenderComponent();
-    unsigned __int16 get_entity_id();
     inline void do_action() const;
 };
 

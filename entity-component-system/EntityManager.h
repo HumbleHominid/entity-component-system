@@ -20,10 +20,10 @@ public:
     EntityManager();
     ~EntityManager();
     void add_entity(component_type cts[NUM_COMPONENTS]);
-    void remove_entity(entity &e);
+    void remove_entity(entity e);
     unsigned __int16 get_num_render_components();
     RenderComponent* get_render_components();
-    inline entity get_entity(unsigned __int16 id);
+    entity get_entity(unsigned __int16 id);
 };
 
 #endif

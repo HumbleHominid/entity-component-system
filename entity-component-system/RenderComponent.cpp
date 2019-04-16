@@ -11,11 +11,6 @@ RenderComponent::RenderComponent(unsigned __int16 entity_id) :
 
 RenderComponent::~RenderComponent() { }
 
-unsigned __int16 RenderComponent::get_entity_id()
-{
-    return m_entity_id;
-}
-
 inline void RenderComponent::do_action() const
 {
     std::cout << "do_action:\t" << m_entity_id << std::endl;

@@ -6,7 +6,7 @@
 class Component
 {
 public:
-    virtual void do_action(entity &e) = 0;
+    virtual inline void do_action() const = 0;
 };
 
 #endif

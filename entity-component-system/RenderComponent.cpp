@@ -3,7 +3,6 @@
 #include "EntityManager.h"
 #include <iostream>
 
-
 RenderComponent::RenderComponent() { }
 
 RenderComponent::RenderComponent(unsigned __int16 entity_id) :
@@ -11,7 +10,7 @@ RenderComponent::RenderComponent(unsigned __int16 entity_id) :
 
 RenderComponent::~RenderComponent() { }
 
-inline void RenderComponent::do_action() const
+void RenderComponent::render()
 {
-    std::cout << "do_action:\t" << m_entity_id << std::endl;
+    std::cout << "render:\t" << m_entity_id << std::endl;
 }

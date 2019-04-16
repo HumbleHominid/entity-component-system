@@ -1,9 +1,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "RenderComponent.h"
-#include "Component.h"
 #include <assert.h>
-#include <iostream>
 
 EntityManager::EntityManager() : m_num_entities(0), m_num_render_components(0) { }
 

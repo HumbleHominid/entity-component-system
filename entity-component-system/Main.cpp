@@ -17,9 +17,7 @@ int main()
     RenderComponent *rcs = em.get_render_components();
     for (unsigned __int16 i = 0; i < em.get_num_render_components(); i++)
     {
-        // there is some memory thing going on here and i don't know what is going on
-        RenderComponent rc = rcs[i];
-        rc.do_action();
+        rcs[i].render();
     }
 
     // remove some things
@@ -29,9 +27,7 @@ int main()
     rcs = em.get_render_components();
     for (unsigned __int16 i = 0; i < em.get_num_render_components(); i++)
     {
-        // there is some memory thing going on here and i don't know what is going on
-        RenderComponent rc = rcs[i];
-        rc.do_action();
+        rcs[i].render();
     }
 
     std::string s;

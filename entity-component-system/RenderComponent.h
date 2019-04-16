@@ -2,6 +2,7 @@
 #define render_component_h
 
 #include "Entity.h"
+#include <iostream>
 
 class RenderComponent
 {
@@ -11,7 +12,8 @@ public:
     RenderComponent();
     RenderComponent(unsigned __int16 entity_id);
     ~RenderComponent();
-    void render();
+
+    inline void render() { std::cout << "render:\t" << m_entity_id << std::endl; }
 };
 
 #endif

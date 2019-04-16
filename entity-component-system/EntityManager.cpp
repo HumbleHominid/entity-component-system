@@ -40,11 +40,6 @@ void EntityManager::add_entity(component_type cts[NUM_COMPONENTS])
     m_num_entities++;
 }
 
-entity EntityManager::get_entity(unsigned __int16 id)
-{
-    return m_entities[id];
-}
-
 void EntityManager::remove_entity(entity e)
 {
     for (unsigned __int8 i = 0; i < NUM_COMPONENTS; i++)
@@ -67,14 +62,4 @@ void EntityManager::remove_entity(entity e)
 
     // move it so we don't have gaps in the array
     m_entities[e.id] = m_entities[--m_num_entities];
-}
-
-RenderComponent* EntityManager::get_render_components()
-{
-    return m_render_components;
-}
-
-unsigned __int16 EntityManager::get_num_render_components()
-{
-    return m_num_render_components;
 }

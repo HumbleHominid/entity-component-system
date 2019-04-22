@@ -2,8 +2,13 @@
 #include "Entity.h"
 #include "RenderComponent.h"
 #include <assert.h>
+#include <vector>
 
-EntityManager::EntityManager() : m_num_entities(0), m_num_render_components(0) { }
+EntityManager::EntityManager()
+{
+    m_entities = std::vector<entity>();
+    m_render_components = std::vector<RenderComponent>();
+}
 
 EntityManager::~EntityManager() { }
 
@@ -16,28 +21,33 @@ inline unsigned __int32 make_component_id(unsigned __int16 desc, unsigned __int1
 
 void EntityManager::add_entity(component_type cts[NUM_COMPONENTS])
 {
-    assert(m_num_entities < MAX_ENTITIES);
-    m_entities[m_num_entities].id = m_num_entities;
+    size_t num_entities = m_entities.size();
+    assert(num_entities < MAX_ENTITIES);
+    entity e;
+    e.id = num_entities;
     for (unsigned __int8 i = 0; i < NUM_COMPONENTS; i++)
     {
         switch (cts[i])
         {
         case none:
         {
-            m_entities[m_num_entities].components[i] = none; // i think this works /shrug
+            e.components[i] = none;
             break;
         }
         case render:
         {
-            m_render_components[m_num_render_components] = RenderComponent(m_entities[m_num_entities].id);
-            m_entities[m_num_entities].components[i] = make_component_id(m_num_render_components, render);
-            m_num_render_components++;
+            unsigned __int16 num_render_components = m_render_components.size();
+            m_render_components.push_back(RenderComponent(e.id));
+            e.components[i] = make_component_id(num_render_components, render);
             
             break;
         }
         }
     }
-    m_num_entities++;
+    m_entities.push_back(e);
+    // If we allocated more memory than our MAX_ENTITIES change the size
+    if (m_entities.capacity() > MAX_ENTITIES) m_entities.reserve(MAX_ENTITIES);
+    if (m_render_components.capacity() > MAX_ENTITIES) m_render_components.reserve(MAX_ENTITIES);
 }
 
 void EntityManager::remove_entity(entity e)
@@ -53,13 +63,12 @@ void EntityManager::remove_entity(entity e)
         case none:
         case render:
         {
-            m_render_components[comp_index] = m_render_components[--m_num_render_components];
-
+            size_t num_render_components = m_render_components.size();
+            m_render_components[comp_index] = m_render_components[num_render_components - 1]; //move the last thing in the list to the spot we want to remove
+            // shrink the array
+            m_render_components.resize(num_render_components - 1);
             break;
         }
         }
     }
-
-    // move it so we don't have gaps in the array
-    m_entities[e.id] = m_entities[--m_num_entities];
 }

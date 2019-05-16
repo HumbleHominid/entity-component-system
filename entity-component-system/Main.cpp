@@ -1,8 +1,8 @@
-#include <iostream>
 #include "EntityManager.h"
 #include "RenderComponent.h"
 #include "LoggingComponent.h"
 
+#include <iostream>
 #include <string>
 #include <vector>
 

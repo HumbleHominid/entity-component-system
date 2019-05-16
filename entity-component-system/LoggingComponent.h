@@ -11,6 +11,7 @@ namespace engine
     private:
         unsigned __int16 m_entity_id;
     public:
+        LoggingComponent() { };
         LoggingComponent(unsigned __int16 entity_id) : m_entity_id(entity_id) { };
         ~LoggingComponent() { };
 

@@ -11,7 +11,7 @@ namespace engine
 {
     const size_t MAX_ENTITIES = 5;
 
-    enum component_types { logging = 0, render = 1, none = -1 };
+    enum component_types { logging = 0, render = 1, none = 0xFF };
     enum entity_types { base }; // just used the logging thing
 
     class EntityManager

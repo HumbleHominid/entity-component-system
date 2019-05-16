@@ -1,6 +1,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
 #include "RenderComponent.h"
+
 #include <assert.h>
 
 namespace engine

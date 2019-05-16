@@ -118,6 +118,7 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
+    <ClInclude Include="LoggingComponent.h" />
     <ClInclude Include="RenderComponent.h" />
   </ItemGroup>
   <ItemGroup>

@@ -1,13 +1,17 @@
 #ifndef entity_h
 #define entity_h
 
-const unsigned __int8 NUM_COMPONENTS = 1;
-
-struct entity
+namespace engine
 {
-    unsigned __int16 id;
-    // id of the component
-    unsigned __int32 components[NUM_COMPONENTS];
-};
+    const unsigned __int8 NUM_COMPONENTS = 2;
+
+    struct entity
+    {
+        unsigned __int16 id;
+        // id of the componets that describe this entity
+        // { logging, render }
+        unsigned __int32 components[NUM_COMPONENTS];
+    };
+}
 
 #endif

@@ -1,34 +1,42 @@
 #include <iostream>
 #include "EntityManager.h"
 #include "RenderComponent.h"
+#include "LoggingComponent.h"
+
 #include <string>
+#include <vector>
 
 int main()
 {
+    using namespace engine;
     EntityManager em = EntityManager();
     // add some things
-    for (unsigned __int8 i = 0; i < MAX_ENTITIES; i++)
-    {
-        component_type components[NUM_COMPONENTS] = { i % 2 ? none : render };
-        em.add_entity(components);
-    }
+    for (unsigned __int8 i = 0; i < MAX_ENTITIES; i++) em.add_entity(base);
     
     // display some things
-    RenderComponent *rcs = em.get_render_components();
-    for (unsigned __int16 i = 0; i < em.get_num_render_components(); i++)
-    {
-        rcs[i].render();
-    }
+    std::vector<RenderComponent> rcs = em.get_render_components();
+    std::vector<LoggingComponent> lcs = em.get_logging_components();
+    
+    printf("First render pass:\n");
+    for (auto rc : rcs) rc.render();
+    
+    printf("\nFirst logging pass:\n");
+    for (auto lc : lcs) lc.log();
 
     // remove some things
-    em.remove_entity(em.get_entity(0));
+    printf("\nRemoving entities 4 and 1:\n");
+    em.remove_entity(em.get_entity(4));
+    em.remove_entity(em.get_entity(1));
     
     // display some things
     rcs = em.get_render_components();
-    for (unsigned __int16 i = 0; i < em.get_num_render_components(); i++)
-    {
-        rcs[i].render();
-    }
+    lcs = em.get_logging_components();
+    
+    printf("\nSecond render pass:\n");
+    for (auto rc : rcs) rc.render();
+    
+    printf("\nSecond logging pass:\n");
+    for (auto lc : lcs) lc.log();
 
     std::string s;
     getline(std::cin, s);

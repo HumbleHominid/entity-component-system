@@ -4,16 +4,19 @@
 #include "Entity.h"
 #include <iostream>
 
-class RenderComponent
+namespace engine
 {
-private:
-    unsigned __int16 m_entity_id;
-public:
-    RenderComponent();
-    RenderComponent(unsigned __int16 entity_id);
-    ~RenderComponent();
+    class RenderComponent
+    {
+    private:
+        unsigned __int16 m_entity_id;
+    public:
+        RenderComponent() { };
+        RenderComponent(unsigned __int16 entity_id);
+        ~RenderComponent();
 
-    inline void render() { std::cout << "render:\t" << m_entity_id << std::endl; }
-};
+        inline void render() { std::cout << "render:\t" << m_entity_id << std::endl; }
+    };
+}
 
 #endif

@@ -3,28 +3,40 @@
 
 #include "Entity.h"
 #include "RenderComponent.h"
+#include "LoggingComponent.h"
 
-const unsigned __int8 MAX_ENTITIES = 5;
+#include <vector>
 
-enum component_type { none, render };
-
-class EntityManager
+namespace engine
 {
-private:
-    unsigned __int16 m_num_entities;
-    entity m_entities[MAX_ENTITIES];
+    const size_t MAX_ENTITIES = 5;
 
-    unsigned __int16 m_num_render_components;
-    RenderComponent m_render_components[NUM_COMPONENTS];
-public:
-    EntityManager();
-    ~EntityManager();
-    void add_entity(component_type cts[NUM_COMPONENTS]);
-    void remove_entity(entity e);
+    enum component_types { logging = 0, render = 1, none = -1 };
+    enum entity_types { base }; // just used the logging thing
 
-    inline entity get_entity(unsigned __int16 id) { return m_entities[id]; }
-    inline RenderComponent* get_render_components() { return m_render_components; }
-    inline unsigned __int16 get_num_render_components() { return m_num_render_components; }
-};
+    class EntityManager
+    {
+    private:
+        std::vector<entity> m_entities;
+
+        std::vector<RenderComponent> m_render_components;
+
+        std::vector<LoggingComponent> m_logging_components;
+    public:
+        EntityManager();
+        ~EntityManager();
+    
+        void add_entity(entity_types entity_type);
+        void remove_entity(entity e);
+
+        inline entity get_entity(size_t id) { return m_entities[id]; }
+
+        inline std::vector<RenderComponent> get_render_components() { return m_render_components; }
+        inline size_t get_num_render_components() { return m_render_components.size(); }
+
+        inline std::vector<LoggingComponent> get_logging_components() { return m_logging_components; }
+        inline size_t get_num_logging_components() { return m_logging_components.size(); }
+    };
+}
 
 #endif

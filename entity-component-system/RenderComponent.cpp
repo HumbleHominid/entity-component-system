@@ -2,9 +2,9 @@
 #include "Entity.h"
 #include "EntityManager.h"
 
-RenderComponent::RenderComponent() { }
+namespace engine
+{
+    RenderComponent::RenderComponent(unsigned __int16 entity_id) : m_entity_id(entity_id) { }
 
-RenderComponent::RenderComponent(unsigned __int16 entity_id) :
-        m_entity_id(entity_id) { }
-
-RenderComponent::~RenderComponent() { }
+    RenderComponent::~RenderComponent() { }
+}

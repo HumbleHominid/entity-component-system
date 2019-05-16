@@ -118,13 +118,12 @@
     <ClInclude Include="Component.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="LoggingComponent.h" />
-    <ClInclude Include="RenderComponent.h" />
+    <ClInclude Include="Handle.h" />
+    <ClInclude Include="HandleLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="RenderComponent.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

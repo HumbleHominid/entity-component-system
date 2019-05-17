@@ -5,10 +5,10 @@
 
 namespace engine
 {
-    enum component_types { handle_logger = 0, none = 0xFF };
-    enum entity_types { base }; // just uses the logging thing
+    enum component_types { handle_logger = 0, position = 1, none = 0xFF };
+    enum entity_types { base, square }; // just uses the logging thing
 
-    const unsigned __int8 NUM_COMPONENTS = 1;
+    const unsigned __int8 NUM_COMPONENTS = 2;
 
     struct entity
     {

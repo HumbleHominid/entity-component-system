@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "HandleLogger.h"
 #include "Handle.h"
+#include "Position.h"
 
 #include <assert.h>
 
@@ -21,7 +22,7 @@ namespace engine
     }
 
     // creates a new entity based on the type of entity to make that is passed in.
-    void EntityManager::add_entity(entity_types entity_type)
+    handle EntityManager::add_entity(entity_types entity_type)
     {
         assert(!m_available_entity_slots.empty());
         
@@ -36,7 +37,7 @@ namespace engine
             case base:
             {
                 // make the logging stuff
-                e->components[handle_logger] = (__int32) make_component_id(m_handle_logging_components.size(), handle_logger);
+                e->components[handle_logger] = make_component_id(m_handle_logging_components.size(), handle_logger);
                 HandleLogger hl = HandleLogger(&e->m_handle);
                 m_handle_logging_components.push_back(hl);
                 e->m_handle.m_counter++;
@@ -44,7 +45,27 @@ namespace engine
 
                 break;
             }
+            case square:
+            {
+                // make the logging stuff
+                e->components[handle_logger] = make_component_id(m_handle_logging_components.size(), handle_logger);
+                HandleLogger hl = HandleLogger(&e->m_handle);
+                m_handle_logging_components.push_back(hl);
+                e->m_handle.m_counter++;
+                if (m_handle_logging_components.capacity() > MAX_ENTITIES) m_handle_logging_components.reserve(MAX_ENTITIES);
+
+                // make the logging stuff
+                e->components[position] = make_component_id(m_position_componets.size(), position);
+                Position p = Position();
+                m_position_componets.push_back(p);
+                e->m_handle.m_counter++;
+                if (m_position_componets.capacity() > MAX_ENTITIES) m_position_componets.reserve(MAX_ENTITIES);
+
+                break;
+            }
         }
+
+        return e->m_handle;
     }
 
     void EntityManager::remove_entity(entity e)
@@ -64,6 +85,16 @@ namespace engine
                 
                 m_handle_logging_components[comp_index] = m_handle_logging_components[new_size];
                 m_handle_logging_components.resize(new_size);
+                e.m_handle.m_counter--;
+
+                break;
+            }
+            case position:
+            {
+                size_t new_size = m_position_componets.size() - 1;
+                
+                m_position_componets[comp_index] = m_position_componets[new_size];
+                m_position_componets.resize(new_size);
                 e.m_handle.m_counter--;
 
                 break;

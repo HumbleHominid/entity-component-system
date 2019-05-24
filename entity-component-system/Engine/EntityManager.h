@@ -5,7 +5,7 @@
 #include "Entity.h"
 #include "EngineConsts.h"
 #include "HandleLogger.h"
-#include "RenderSquare.h"
+#include "RenderComponent.h"
 
 #include <vector>
 #include <queue>
@@ -19,7 +19,7 @@ namespace engine
         entity m_entities[MAX_ENTITIES];
 
         std::vector<HandleLogger> m_handle_logging_components;
-        std::vector<RenderSquare> m_render_square_components;
+        std::vector<RenderComponent> m_render_components;
     public:
         EntityManager();
         ~EntityManager() { }
@@ -40,8 +40,9 @@ namespace engine
         inline size_t get_num_logging_components() { return m_handle_logging_components.size(); }
 
         // ---
-        // Public helper methods
-        void render_entities() const;
+        // Render stuf
+        inline std::vector<RenderComponent> get_render_components() { return m_render_components; }
+        inline size_t get_num_render_components() { return m_render_components.size(); }
     };
 }
 

@@ -2,7 +2,7 @@
 #include "EntityManager.h"
 #include "Handle.h"
 #include "HandleLogger.h"
-#include "RenderSquare.h"
+#include "RenderComponent.h"
 #include "EngineConsts.h"
 
 #include <assert.h>
@@ -52,13 +52,28 @@ namespace engine
             case square:
             {
                 // @Note using the namespace to be more explicit
-                e->components[entity_component_types::render] = make_component_id(m_render_square_components.size(), component_types::render_square);
-                RenderSquare rs = RenderSquare(0, 0); // @Note change to actual texture and mest later
-                m_render_square_components.push_back(rs);
+                e->components[entity_component_types::render] = make_component_id(m_render_components.size(), component_types::render_component);
+                RenderComponent rc = RenderComponent(4, 0); // @Note change to actual texture and mest later
+                m_render_components.push_back(rc);
                 e->m_handle.m_counter++;
-                if (m_render_square_components.capacity() > MAX_ENTITIES) m_render_square_components.reserve(MAX_ENTITIES);            
+                if (m_render_components.capacity() > MAX_ENTITIES) m_render_components.reserve(MAX_ENTITIES);            
 
                 break;
+            }
+            case triangle:
+            {
+                // @Note using the namespace to be more explicit
+                e->components[entity_component_types::render] = make_component_id(m_render_components.size(), component_types::render_component);
+                RenderComponent rc = RenderComponent(3, 0); // @Note change to actual texture and mest later
+                m_render_components.push_back(rc);
+                e->m_handle.m_counter++;
+                if (m_render_components.capacity() > MAX_ENTITIES) m_render_components.reserve(MAX_ENTITIES);            
+
+                break;
+            }
+            default:
+            {
+                for (size_t i = 0; i < NUM_COMPONENTS; i++) e->components[i] = none;
             }
         }
 
@@ -90,12 +105,12 @@ namespace engine
 
                 break;
             }
-            case component_types::render_square:
+            case component_types::render_component:
             {
-                size_t new_size = m_render_square_components.size() - 1;
+                size_t new_size = m_render_components.size() - 1;
                 
-                m_render_square_components[comp_index] = m_render_square_components[new_size];
-                m_render_square_components.resize(new_size);
+                m_render_components[comp_index] = m_render_components[new_size];
+                m_render_components.resize(new_size);
                 e.m_handle.m_counter--;
 
                 break;
@@ -109,36 +124,6 @@ namespace engine
             entity cur_entity = m_entities[i];
             
             if (cur_entity.m_handle.m_counter < 1) m_available_entity_slots.push(cur_entity.m_handle.m_index);
-        }
-    }
-
-    void EntityManager::render_entities() const
-    {
-        for (size_t i = 0; i < MAX_ENTITIES; i++)
-        {
-            entity e = m_entities[i];
-            handle h = e.m_handle;
-
-            if (h.m_counter < 0) continue;
-            
-            unsigned __int32 comp_id = e.components[entity_component_types::render];
-            // @Note chops upper bits
-            unsigned __int16 comp_type = comp_id;
-
-            if (comp_type == component_types::none) continue;
-
-            // @Refactor Meta programmig yo
-            switch (comp_type)
-            {
-            case component_types::render_square:
-            {
-                unsigned __int16 comp_index = (comp_id >> 16);
-
-                if (comp_index >= m_render_square_components.size()) break;
-                    
-                m_render_square_components[comp_index].render();
-            }
-            }
         }
     }
 }

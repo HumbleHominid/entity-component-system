@@ -14,7 +14,7 @@ int main()
     // add some things
     for (unsigned __int8 i = 0; i < MAX_ENTITIES; i++)
     {
-        handle h = em.add_entity(square);
+        handle h = em.add_entity(i % 2 == 0 ? triangle : square);
     }
     
     // display some things    
@@ -31,7 +31,8 @@ int main()
     for (auto lc : em.get_logging_components()) lc.log();
 
     // call render on all of the entities
-    em.render_entities();
+    printf("\nRendering the entities:\n");
+    for (auto rc : em.get_render_components()) rc.render();
 
     std::string s;
     getline(std::cin, s);

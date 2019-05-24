@@ -4,6 +4,7 @@
 - Rendering
     - Holds the texture
     - Holds the mesh (when i get there)
+    - Needs to know the position of the entity
 - Physics
     - Need to know about the position component
     - Collisions?

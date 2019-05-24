@@ -121,12 +121,10 @@
     <ClInclude Include="Engine\Handle.h" />
     <ClInclude Include="Engine\HandleLogger.h" />
     <ClInclude Include="Engine\RenderComponent.h" />
-    <ClInclude Include="Engine\RenderSquare.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\EntityManager.cpp" />
-    <ClCompile Include="Engine\RenderSquare.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

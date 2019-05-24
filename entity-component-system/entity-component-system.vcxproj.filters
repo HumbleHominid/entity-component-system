@@ -36,9 +36,6 @@
     <ClInclude Include="Engine\RenderComponent.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\RenderSquare.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\EngineConsts.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -48,9 +45,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\EntityManager.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\RenderSquare.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

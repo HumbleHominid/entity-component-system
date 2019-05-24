@@ -23,6 +23,12 @@ namespace engine
             std::cout << "\tType: " << m_entity_handle->m_type << std::endl;
             std::cout << "\tIndex: " << m_entity_handle->m_index << std::endl;
         }
+
+        HandleLogger& operator=(const HandleLogger &other)
+        {
+            m_entity_handle = other.m_entity_handle;
+            return *this;
+        };
     };
 }
 

@@ -1,11 +1,11 @@
 #ifndef entity_h
 #define entity_h
 
-#include "Handle.h"
+#include "handle.h"
 
 namespace engine
 {
-    enum component_types { handle_logger = 0, position = 1, none = 0xFF };
+    enum component_types { handle_logger = 0, square_physics = 1, none = 0xFF };
     enum entity_types { base, square }; // just uses the logging thing
 
     const unsigned __int8 NUM_COMPONENTS = 2;
@@ -18,7 +18,7 @@ namespace engine
         // lower 14 bits for the index (max: 16384) (of same type)
         handle m_handle;
         // id of the componets that describe this entity
-        // { handle_logger }
+        // { handle_logger, square_physics }
         unsigned __int32 components[NUM_COMPONENTS];
     };
 }

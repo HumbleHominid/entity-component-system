@@ -115,16 +115,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityManager.h" />
-    <ClInclude Include="Handle.h" />
-    <ClInclude Include="HandleLogger.h" />
-    <ClInclude Include="Position.h" />
+    <ClInclude Include="Engine\Entity.h" />
+    <ClInclude Include="Engine\EntityManager.h" />
+    <ClInclude Include="Engine\Handle.h" />
+    <ClInclude Include="Engine\HandleLogger.h" />
+    <ClInclude Include="Engine\RenderComponent.h" />
+    <ClInclude Include="Engine\RenderSquare.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Engine\EntityManager.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -1,8 +1,7 @@
 #include "EntityManager.h"
 #include "Entity.h"
-#include "HandleLogger.h"
 #include "Handle.h"
-#include "Position.h"
+#include "HandleLogger.h"
 
 #include <assert.h>
 
@@ -31,35 +30,27 @@ namespace engine
         entity* e = &m_entities[next_available];
         e->m_handle = handle(0, entity_type, next_available);
 
+        // all components have the handle logger
+        {
+            e->components[handle_logger] = make_component_id(m_handle_logging_components.size(), handle_logger);
+            HandleLogger hl = HandleLogger(&e->m_handle);
+            m_handle_logging_components.push_back(hl);
+            e->m_handle.m_counter++;
+            if (m_handle_logging_components.capacity() > MAX_ENTITIES) m_handle_logging_components.reserve(MAX_ENTITIES);
+        }
+
         // factory for making a new entity
         switch (entity_type)
         {
             case base:
             {
-                // make the logging stuff
-                e->components[handle_logger] = make_component_id(m_handle_logging_components.size(), handle_logger);
-                HandleLogger hl = HandleLogger(&e->m_handle);
-                m_handle_logging_components.push_back(hl);
-                e->m_handle.m_counter++;
-                if (m_handle_logging_components.capacity() > MAX_ENTITIES) m_handle_logging_components.reserve(MAX_ENTITIES);
+                for (size_t i = 0; i < NUM_COMPONENTS; i++) e->components[i] = none;
 
                 break;
             }
             case square:
             {
-                // make the logging stuff
-                e->components[handle_logger] = make_component_id(m_handle_logging_components.size(), handle_logger);
-                HandleLogger hl = HandleLogger(&e->m_handle);
-                m_handle_logging_components.push_back(hl);
-                e->m_handle.m_counter++;
-                if (m_handle_logging_components.capacity() > MAX_ENTITIES) m_handle_logging_components.reserve(MAX_ENTITIES);
-
-                // make the logging stuff
-                e->components[position] = make_component_id(m_position_componets.size(), position);
-                Position p = Position();
-                m_position_componets.push_back(p);
-                e->m_handle.m_counter++;
-                if (m_position_componets.capacity() > MAX_ENTITIES) m_position_componets.reserve(MAX_ENTITIES);
+                e->components[square_physics] = none;
 
                 break;
             }
@@ -68,9 +59,11 @@ namespace engine
         return e->m_handle;
     }
 
-    void EntityManager::remove_entity(entity e)
+    void EntityManager::remove_entity(handle h)
     {
-        for (unsigned __int8 i = 0; i < NUM_COMPONENTS; i++)
+        entity e = get_entity_by_handle(h);
+        
+        for (size_t i = 0; i < NUM_COMPONENTS; i++)
         {
             unsigned __int32 comp_id = e.components[i];
             unsigned __int16 comp_type = comp_id;
@@ -78,23 +71,13 @@ namespace engine
 
             switch(comp_type)
             {
-            case none:
+            case none: break;
             case handle_logger:
             {
                 size_t new_size = m_handle_logging_components.size() - 1;
                 
                 m_handle_logging_components[comp_index] = m_handle_logging_components[new_size];
                 m_handle_logging_components.resize(new_size);
-                e.m_handle.m_counter--;
-
-                break;
-            }
-            case position:
-            {
-                size_t new_size = m_position_componets.size() - 1;
-                
-                m_position_componets[comp_index] = m_position_componets[new_size];
-                m_position_componets.resize(new_size);
                 e.m_handle.m_counter--;
 
                 break;

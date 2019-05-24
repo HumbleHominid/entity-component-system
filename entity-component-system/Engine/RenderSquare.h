@@ -9,9 +9,10 @@
 
 namespace engine
 {
-    class RenderSquare : RenderComponent
+    class RenderSquare : public RenderComponent
     {
     public:
+        RenderSquare();
         RenderSquare(int texture, int mesh); // @TODO update this so that it uses actual textures and meshes later
         ~RenderSquare();
         void render() const;

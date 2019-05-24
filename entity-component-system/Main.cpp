@@ -30,6 +30,9 @@ int main()
     printf("\nSecond logging pass:\n");
     for (auto lc : em.get_logging_components()) lc.log();
 
+    // call render on all of the entities
+    em.render_entities();
+
     std::string s;
     getline(std::cin, s);
 

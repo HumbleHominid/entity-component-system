@@ -10,7 +10,7 @@ namespace engine
     {
         handle m_handle;
         // id of the componets that describe this entity
-        // same order as listed in component_types
+        // indexed bassed off of entity_components
         unsigned __int32 components[NUM_COMPONENTS];
     };
 }

@@ -3,7 +3,11 @@
 
 namespace engine
 {
-    enum component_types { handle_logger = 0, render_component = 1, none = 0xFF };
+    // @NOTE These are the types of components we can make. not the ones an entity can hold.
+    //  i.e. there will be multiple types of render components here but only one in the entity
+    enum component_types { handle_logger, render_square, none = 0xFF };
+    // @NOTE Thes are then components that describe an entity
+    enum entity_component_types { logger = 0, render = 1 };
     enum entity_types { base, square };
 
     const unsigned __int8 NUM_COMPONENTS = 2;

@@ -33,17 +33,15 @@ namespace engine
         // @Note this gets the entity by using the handle's m_index property
         inline entity get_entity_by_handle(handle hand) { return m_entities[hand.m_index]; }
 
-        // @Note with jai this can be done using meta programming
+        // @Refactor with jai this can be done using meta programming
         // ---
         // Logging stuff
         inline std::vector<HandleLogger> get_logging_components() { return m_handle_logging_components; }
         inline size_t get_num_logging_components() { return m_handle_logging_components.size(); }
-        
-        // ---
-        // Render stuff
-        inline std::vector<RenderSquare> get_render_square_components() { return m_render_square_components; }
-        inline size_t get_num_render_square_components() { return m_render_square_components.size(); }
 
+        // ---
+        // Public helper methods
+        void render_entities() const;
     };
 }
 

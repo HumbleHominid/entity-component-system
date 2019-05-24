@@ -5,11 +5,11 @@ namespace engine
 {
     class RenderComponent
     {
-    private:
+    protected:
         int m_texture;  // @TODO flush this out to be an actual texture
         int m_mesh;     // @TODO flush this out to be an actual mesh
     public:
-        virtual void render() = 0;
+        virtual void render() const = 0;
     };
 }
 

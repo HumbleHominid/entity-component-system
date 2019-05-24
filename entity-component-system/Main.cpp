@@ -1,7 +1,7 @@
 #include "Engine/EntityManager.h"
 #include "Engine/Handle.h"
-#include "Engine/Entity.h";
-#include "GL/glut.h"
+#include "Engine/Entity.h"
+#include "Engine/EngineConsts.h"
 
 #include <iostream>
 #include <string>

@@ -3,7 +3,10 @@
 
 namespace engine
 {
-    // sums to 32 bits used
+    // 32 bit integer. 
+    // upper 8 bits are the type of entity (max: 256)
+    // middle 10 bits are the references (max: 1024)
+    // lower 14 bits for the index (max: 16384) (of same type)
     const unsigned __int16 counter_bits = 10;
     const unsigned __int16 type_bits = 8;
     const unsigned __int16 index_bits = 14;

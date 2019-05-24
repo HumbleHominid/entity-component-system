@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Engine\EngineConsts.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\EntityManager.h" />
     <ClInclude Include="Engine\Handle.h" />
@@ -125,6 +126,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\EntityManager.cpp" />
+    <ClCompile Include="Engine\RenderSquare.cpp" />
     <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>

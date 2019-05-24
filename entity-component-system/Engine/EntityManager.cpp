@@ -1,7 +1,8 @@
-#include "EntityManager.h"
 #include "Entity.h"
+#include "EntityManager.h"
 #include "Handle.h"
 #include "HandleLogger.h"
+#include "RenderSquare.h"
 
 #include <assert.h>
 
@@ -50,7 +51,7 @@ namespace engine
             }
             case square:
             {
-                e->components[square_physics] = none;
+                e->components[render_component] = none;
 
                 break;
             }
@@ -81,6 +82,11 @@ namespace engine
                 e.m_handle.m_counter--;
 
                 break;
+            }
+            case render_component:
+            {
+                // get the type of component
+                
             }
             }
         }

@@ -24,7 +24,7 @@ int main()
     // remove some things
     printf("\nRemoving entities 4 and 1:\n");
     em.remove_entity(em.get_entity_by_index(4).m_handle);
-    //em.remove_entity(em.get_entity_by_index(1));
+    em.remove_entity(em.get_entity_by_index(1).m_handle);
     
     // display some things    
     printf("\nSecond logging pass:\n");

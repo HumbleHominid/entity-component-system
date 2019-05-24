@@ -17,6 +17,25 @@ namespace engine
 
     unsigned __int32 make_component_id(size_t index, component_types type) { return (index << 16) | type; }
 
+    template<class T>
+    void add_component(entity *e, std::vector<T> &component_list, entity_component_types ect, component_types ct, T comp_to_add)
+    {
+        e->components[ect] = make_component_id(component_list.size(), ct);
+        component_list.push_back(comp_to_add);
+        e->m_handle.m_counter++;
+        if (component_list.capacity() > MAX_ENTITIES) component_list.reserve(MAX_ENTITIES);
+    }
+
+    template<class T>
+    void delete_component(std::vector<T> &component_list, entity &e, size_t index)
+    {
+        size_t new_size = component_list.size() - 1;
+        
+        component_list[index] = component_list[new_size];
+        component_list.resize(new_size);
+        e.m_handle.m_counter--;
+    }
+
     // creates a new entity based on the type of entity to make that is passed in.
     handle EntityManager::add_entity(entity_types entity_type)
     {
@@ -30,14 +49,9 @@ namespace engine
         e->m_handle = handle(0, entity_type, next_available);
 
         // all components have the handle logger for their logger component
-        // @Refactor should be able to make a meta program to handle this genericly
         {
-            // @Note using the namespace to be more explicit
-            e->components[entity_component_types::logger] = make_component_id(m_handle_logging_components.size(), component_types::handle_logger);
             HandleLogger hl = HandleLogger(&e->m_handle);
-            m_handle_logging_components.push_back(hl);
-            e->m_handle.m_counter++;
-            if (m_handle_logging_components.capacity() > MAX_ENTITIES) m_handle_logging_components.reserve(MAX_ENTITIES);
+            add_component<HandleLogger>(e, m_handle_logging_components, entity_component_types::logger, component_types::handle_logger, hl);
         }
 
         // factory for making a new entity
@@ -51,23 +65,15 @@ namespace engine
             }
             case square:
             {
-                // @Note using the namespace to be more explicit
-                e->components[entity_component_types::render] = make_component_id(m_render_components.size(), component_types::render_component);
-                RenderComponent rc = RenderComponent(4, 0); // @Note change to actual texture and mest later
-                m_render_components.push_back(rc);
-                e->m_handle.m_counter++;
-                if (m_render_components.capacity() > MAX_ENTITIES) m_render_components.reserve(MAX_ENTITIES);            
+                RenderComponent rc = RenderComponent(4, 0);
+                add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
                 break;
             }
             case triangle:
             {
-                // @Note using the namespace to be more explicit
-                e->components[entity_component_types::render] = make_component_id(m_render_components.size(), component_types::render_component);
-                RenderComponent rc = RenderComponent(3, 0); // @Note change to actual texture and mest later
-                m_render_components.push_back(rc);
-                e->m_handle.m_counter++;
-                if (m_render_components.capacity() > MAX_ENTITIES) m_render_components.reserve(MAX_ENTITIES);            
+                RenderComponent rc = RenderComponent(3, 0);
+                add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
                 break;
             }
@@ -90,28 +96,18 @@ namespace engine
             unsigned __int16 comp_type = comp_id;
             unsigned __int16 comp_index = (comp_id >> 16);
 
-            // @Refactor This should be handled with meta programming so i
-            //  don't have to change this method every damn time i add a new component
             switch(comp_type)
             {
             case component_types::none: break;
             case component_types::handle_logger:
             {
-                size_t new_size = m_handle_logging_components.size() - 1;
-                
-                m_handle_logging_components[comp_index] = m_handle_logging_components[new_size];
-                m_handle_logging_components.resize(new_size);
-                e.m_handle.m_counter--;
+                delete_component<HandleLogger>(m_handle_logging_components, e, comp_index);
 
                 break;
             }
             case component_types::render_component:
             {
-                size_t new_size = m_render_components.size() - 1;
-                
-                m_render_components[comp_index] = m_render_components[new_size];
-                m_render_components.resize(new_size);
-                e.m_handle.m_counter--;
+                delete_component<RenderComponent>(m_render_components, e, comp_index);
 
                 break;
             }

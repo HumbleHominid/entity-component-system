@@ -39,12 +39,18 @@
     <ClInclude Include="Engine\EngineConsts.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\PositionComponent.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Engine\EntityManager.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\RenderComponent.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>

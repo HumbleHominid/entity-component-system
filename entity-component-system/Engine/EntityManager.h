@@ -1,10 +1,11 @@
 #ifndef entity_manager_h
 #define entity_manager_h
 
+#include "EngineConsts.h"
 #include "Handle.h"
 #include "Entity.h"
-#include "EngineConsts.h"
 #include "HandleLogger.h"
+#include "PositionComponent.h"
 #include "RenderComponent.h"
 
 #include <vector>

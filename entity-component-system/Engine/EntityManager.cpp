@@ -65,14 +65,14 @@ namespace engine
             }
             case square:
             {
-                RenderComponent rc = RenderComponent(4, 0);
+                RenderComponent rc = RenderComponent(4, 0, e->m_handle);
                 add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
                 break;
             }
             case triangle:
             {
-                RenderComponent rc = RenderComponent(3, 0);
+                RenderComponent rc = RenderComponent(3, 0, e->m_handle);
                 add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
                 break;

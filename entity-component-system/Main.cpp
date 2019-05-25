@@ -1,7 +1,7 @@
+#include "Engine/EngineConsts.h"
+#include "Engine/Entity.h"
 #include "Engine/EntityManager.h"
 #include "Engine/Handle.h"
-#include "Engine/Entity.h"
-#include "Engine/EngineConsts.h"
 #include "Engine/PositionComponent.h"
 
 #include <iostream>
@@ -88,19 +88,21 @@ int main(int argc, char** argv)
     // ---
     // Actual OpenGL things yay
     return 0;
-    // Add a bunch of shit so we can test
-    for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)
     {
-        engine::handle h = entity_manager.add_entity(i % 2 == 0 ? engine::triangle : engine::square);
-    }
+        // Add a bunch of shit so we can test
+        for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)
+        {
+            engine::handle h = entity_manager.add_entity(i % 2 == 0 ? engine::triangle : engine::square);
+        }
 
-    glutInit(&argc, argv);
-    glutInitDisplayMode(GLUT_SINGLE);
-    glutInitWindowSize(500, 500);
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("Hello World!");
-    glutDisplayFunc(display);
-    glutMainLoop();
+        glutInit(&argc, argv);
+        glutInitDisplayMode(GLUT_SINGLE);
+        glutInitWindowSize(500, 500);
+        glutInitWindowPosition(100, 100);
+        glutCreateWindow("Hello World!");
+        glutDisplayFunc(display);
+        glutMainLoop();
+    }
 
     return 0;
 }

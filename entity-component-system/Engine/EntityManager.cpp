@@ -1,9 +1,12 @@
+#include "EngineConsts.h"
 #include "Entity.h"
 #include "EntityManager.h"
 #include "Handle.h"
+
+// Components
 #include "HandleLogger.h"
 #include "RenderComponent.h"
-#include "EngineConsts.h"
+#include "PositionComponent.h"
 
 #include <assert.h>
 

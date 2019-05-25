@@ -18,12 +18,7 @@ namespace engine
     
         inline vec3 get_position() { return m_position; }
         inline float get_rotation() { return m_rotation; }
-        inline void set_position(float x, float y, float z)
-        {
-            m_position.m_x = x;
-            m_position.m_y = y;
-            m_position.m_z = z;
-        }
+        inline void set_position(vec3 position) { m_position = position; }
         inline void set_rotation(float rotation) { m_rotation = rotation; }
     };
 }

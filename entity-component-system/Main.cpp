@@ -48,7 +48,8 @@ int main(int argc, char** argv)
                 new_pos.m_z = i;
                 
                 unsigned __int16 comp_index = (comp_id >> 16);
-                position_components[comp_index].set_position(i, i, i);
+                position_components[comp_index].set_position(new_pos);
+                position_components[comp_index].set_rotation(3.14159f / (i + 1));
             }
         }
         

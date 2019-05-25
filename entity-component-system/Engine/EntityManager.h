@@ -2,8 +2,10 @@
 #define entity_manager_h
 
 #include "EngineConsts.h"
-#include "Handle.h"
 #include "Entity.h"
+#include "Handle.h"
+
+// Components
 #include "HandleLogger.h"
 #include "PositionComponent.h"
 #include "RenderComponent.h"

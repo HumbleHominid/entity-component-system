@@ -87,7 +87,6 @@ int main(int argc, char** argv)
 
     // ---
     // Actual OpenGL things yay
-    return 0;
     {
         // Add a bunch of shit so we can test
         for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)

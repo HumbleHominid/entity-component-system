@@ -111,19 +111,16 @@ namespace engine
             case component_types::handle_logger:
             {
                 delete_component<HandleLogger>(m_handle_logging_components, e, comp_index);
-
                 break;
             }
             case component_types::render_component:
             {
                 delete_component<RenderComponent>(m_render_components, e, comp_index);
-
                 break;
             }
             case component_types::position_component:
             {
                 delete_component<PositionComponent>(m_position_components, e, comp_index);
-
                 break;
             }
             }

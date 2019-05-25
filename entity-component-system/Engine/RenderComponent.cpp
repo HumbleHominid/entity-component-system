@@ -19,7 +19,7 @@ namespace engine
         glBegin(GL_POLYGON);
 
         float theta = (2 * 3.14159f) / m_texture; // evenly spaced about circle
-        float radius = 0.5f;
+        float radius = 0.2f;
         for (size_t i = 0; i  < m_texture; i++)
         {
             float angle = theta * i;

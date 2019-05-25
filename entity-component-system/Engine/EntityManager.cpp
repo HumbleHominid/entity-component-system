@@ -68,6 +68,9 @@ namespace engine
                 RenderComponent rc = RenderComponent(4, 0, e->m_handle);
                 add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
+                PositionComponent pc = PositionComponent();
+                add_component<PositionComponent>(e, m_position_components, entity_component_types::position, component_types::position_component, pc);
+
                 break;
             }
             case triangle:
@@ -75,6 +78,9 @@ namespace engine
                 RenderComponent rc = RenderComponent(3, 0, e->m_handle);
                 add_component<RenderComponent>(e, m_render_components, entity_component_types::render, component_types::render_component, rc);
 
+                PositionComponent pc = PositionComponent();
+                add_component<PositionComponent>(e, m_position_components, entity_component_types::position, component_types::position_component, pc);
+                
                 break;
             }
             default:
@@ -108,6 +114,12 @@ namespace engine
             case component_types::render_component:
             {
                 delete_component<RenderComponent>(m_render_components, e, comp_index);
+
+                break;
+            }
+            case component_types::position_component:
+            {
+                delete_component<PositionComponent>(m_position_components, e, comp_index);
 
                 break;
             }

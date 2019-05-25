@@ -2,6 +2,7 @@
 #include "Engine/Handle.h"
 #include "Engine/Entity.h"
 #include "Engine/EngineConsts.h"
+#include "Engine/PositionComponent.h"
 
 #include <iostream>
 #include <string>
@@ -25,14 +26,30 @@ void display(void)
 int main(int argc, char** argv)
 {
     // Engine tests in lieu of real tests for now lmao
-    /*
     {
         using namespace engine;
         EntityManager em = EntityManager();
         // add some things
-        for (unsigned __int8 i = 0; i < MAX_ENTITIES; i++)
+        for (size_t i = 0; i < MAX_ENTITIES; i++)
         {
             handle h = em.add_entity(i % 2 == 0 ? triangle : square);
+        }
+
+        entity* entities = em.get_entities();
+        std::vector<PositionComponent> &position_components = em.get_position_components();
+        for (size_t i = 0; i < MAX_ENTITIES; i++)
+        {
+            unsigned __int32 comp_id = entities[i].components[entity_component_types::position];
+            if (comp_id != component_types::none)
+            {
+                vec3 new_pos;
+                new_pos.m_x = i;
+                new_pos.m_y = i;
+                new_pos.m_z = i;
+                
+                unsigned __int16 comp_index = (comp_id >> 16);
+                position_components[comp_index].set_position(i, i, i);
+            }
         }
         
         // display some things    
@@ -51,15 +68,25 @@ int main(int argc, char** argv)
         // call render on all of the entities
         printf("\nRendering the entities:\n");
         for (auto rc : em.get_render_components()) rc.render();
+
+        // display all the positions
+        printf("\nDisplaying the entity positions:\n");
+        for (auto pc : em.get_position_components())
+        {
+            vec3 vec = pc.get_position();
+            printf("\tX: %f\n", vec.m_x);
+            printf("\tY: %f\n", vec.m_y);
+            printf("\tZ: %f\n", vec.m_z);
+            printf("\tRotation: %f\n", pc.get_rotation());
+        }
         
         std::string s;
         getline(std::cin, s);
     }
-    */
 
     // ---
     // Actual OpenGL things yay
-    
+    return 0;
     // Add a bunch of shit so we can test
     for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)
     {

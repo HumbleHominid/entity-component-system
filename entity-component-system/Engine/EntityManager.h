@@ -21,6 +21,7 @@ namespace engine
 
         std::vector<HandleLogger> m_handle_logging_components;
         std::vector<RenderComponent> m_render_components;
+        std::vector<PositionComponent> m_position_components;
     public:
         EntityManager();
         ~EntityManager() { }
@@ -33,6 +34,7 @@ namespace engine
         inline entity get_entity_by_index(size_t index) { return m_entities[index]; }
         // @Note this gets the entity by using the handle's m_index property
         inline entity get_entity_by_handle(handle hand) { return m_entities[hand.m_index]; }
+        inline entity* get_entities() { return m_entities; }
 
         // @Refactor with jai this can be done using meta programming
         // ---
@@ -41,9 +43,14 @@ namespace engine
         inline size_t get_num_logging_components() { return m_handle_logging_components.size(); }
 
         // ---
-        // Render stuf
+        // Render stuff
         inline std::vector<RenderComponent> get_render_components() { return m_render_components; }
         inline size_t get_num_render_components() { return m_render_components.size(); }
+
+        // ---
+        // Position stuff
+        inline std::vector<PositionComponent>& get_position_components() { return m_position_components; }
+        inline size_t get_num_position_components() { return m_position_components.size(); }
     };
 }
 

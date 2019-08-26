@@ -35,6 +35,7 @@ namespace engine
         // Entity Stuff
         handle add_entity(entity_types entity_type);
         void remove_entity(handle h);
+        inline bool is_max_entities() { return m_available_entity_slots.none(); }
 
         inline entity get_entity_by_index(size_t index) { return m_entities[index]; }
         // @Note this gets the entity by using the handle's m_index property

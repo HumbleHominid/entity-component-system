@@ -24,7 +24,7 @@ namespace engine
         printf("pos values are\nx: %f\ny: %f\nz: %f\n", x, y, z);
 
         float theta = (2 * 3.14159f) / m_texture; // evenly spaced about circle
-        float radius = 0.2f;
+        float radius = 0.1f;
         for (size_t i = 0; i  < m_texture; i++)
         {
             float angle = theta * i +  rotation;

@@ -106,20 +106,37 @@ int main(int argc, char** argv)
     // Actual OpenGL things yay
     {
         using namespace engine;
-        // Add a bunch of shit so we can test
-        for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)
+        // Add one triangle for the player and fill the rest with squares
+        handle player_handle = entity_manager.add_entity(triangle);
         {
-            handle h = entity_manager.add_entity(i % 2 == 0 ? engine::triangle : engine::square);
+            entity e = entity_manager.get_entity_by_handle(player_handle);
+            PositionComponent& pc = entity_manager.get_position_component(e);
+            
+            vec3 new_pos;
+            new_pos.m_x = 0;
+            new_pos.m_y = -0.8f;
+
+            pc.set_position(new_pos);
+            pc.set_rotation(3.14159f / (-6));
+        }
+        int count = 0;
+        while (!entity_manager.is_max_entities())
+        {
+            handle h = entity_manager.add_entity(square);
             entity e = entity_manager.get_entity_by_handle(h);
             PositionComponent& pc = entity_manager.get_position_component(e);
 
             vec3 new_pos;
-            float num = i * 0.9f;
+            float num = count * 0.9f;
             new_pos.m_x = cos(sqrt(num));
-            new_pos.m_y = sin(num);
+            new_pos.m_y = cos(num);
+            new_pos.m_y *= new_pos.m_y;
+            new_pos.m_y *= 0.25f;
+            new_pos.m_y += 0.5f;
 
             pc.set_position(new_pos);
-            pc.set_rotation(3.14159f / (i + 1));
+            pc.set_rotation(3.14159f / 2);
+            count++;
         }
 
         glutInit(&argc, argv);

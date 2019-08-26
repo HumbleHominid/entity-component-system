@@ -3,22 +3,39 @@
 #include "Engine/EntityManager.h"
 #include "Engine/Handle.h"
 #include "Engine/PositionComponent.h"
+#include "Engine/EngineConsts.h"
 
 #include <iostream>
 #include <string>
 #include <vector>
 #include <GL/glut.h>
+#include <cmath>
 
 engine::EntityManager entity_manager;
 
 void display(void)
 {
+    using namespace engine;
     // Set the beackground to be a better color
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.35f, 0.36f, 0.43f, 1.0f); // Greyish color
 
     // Render all the current entities
-    for (auto rc : entity_manager.get_render_components()) rc.render();
+    entity_manager.render();
+    // get all my entities to render
+    entity* entities = entity_manager.get_entities();
+
+    for (size_t i = 0; i < MAX_ENTITIES; i++)
+    {
+        entity e = *entities;
+        
+        PositionComponent pc = entity_manager.get_position_component(e);
+        RenderComponent rc = entity_manager.get_render_component(e);
+
+        rc.render(pc);
+
+        entities++;
+    }
 
     glFlush();
 }
@@ -32,7 +49,7 @@ int main(int argc, char** argv)
         // add some things
         for (size_t i = 0; i < MAX_ENTITIES; i++)
         {
-            handle h = em.add_entity(i % 2 == 0 ? triangle : square);
+            em.add_entity(i % 2 == 0 ? triangle : square);
         }
 
         entity* entities = em.get_entities();
@@ -68,7 +85,7 @@ int main(int argc, char** argv)
 
         // call render on all of the entities
         printf("\nRendering the entities:\n");
-        for (auto rc : em.get_render_components()) rc.render();
+        // for (auto rc : em.get_render_components()) rc.render();
 
         // display all the positions
         printf("\nDisplaying the entity positions:\n");
@@ -82,16 +99,27 @@ int main(int argc, char** argv)
         }
         
         std::string s;
-        getline(std::cin, s);
+        // getline(std::cin, s);
     }
 
     // ---
     // Actual OpenGL things yay
     {
+        using namespace engine;
         // Add a bunch of shit so we can test
         for (unsigned __int8 i = 0; i < engine::MAX_ENTITIES; i++)
         {
-            engine::handle h = entity_manager.add_entity(i % 2 == 0 ? engine::triangle : engine::square);
+            handle h = entity_manager.add_entity(i % 2 == 0 ? engine::triangle : engine::square);
+            entity e = entity_manager.get_entity_by_handle(h);
+            PositionComponent& pc = entity_manager.get_position_component(e);
+
+            vec3 new_pos;
+            float num = i * 0.9f;
+            new_pos.m_x = cos(sqrt(num));
+            new_pos.m_y = sin(num);
+
+            pc.set_position(new_pos);
+            pc.set_rotation(3.14159f / (i + 1));
         }
 
         glutInit(&argc, argv);

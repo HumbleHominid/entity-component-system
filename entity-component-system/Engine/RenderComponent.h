@@ -2,6 +2,7 @@
 #define render_component_h
 
 #include "Handle.h"
+#include "PositionComponent.h"
 
 namespace engine
 {
@@ -17,7 +18,7 @@ namespace engine
                 m_texture(texture), m_mesh(mesh), m_entity_handle(entity_handle) { } 
         ~RenderComponent() { }
 
-        void render() const;
+        void render(PositionComponent pc) const;
     };
 }
 

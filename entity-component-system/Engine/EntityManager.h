@@ -12,14 +12,17 @@
 
 #include <vector>
 #include <queue>
+#include <bitset>
 
 namespace engine
 {
     class EntityManager
     {
     private:
-        std::priority_queue<size_t, std::vector<size_t>, std::greater<size_t>> m_available_entity_slots;
+        std::bitset<MAX_ENTITIES> m_available_entity_slots = std::bitset<MAX_ENTITIES>(MAX_ENTITIES);
         entity m_entities[MAX_ENTITIES];
+
+        size_t next_available_entity_slot();
 
         std::vector<HandleLogger> m_handle_logging_components;
         std::vector<RenderComponent> m_render_components;
@@ -48,11 +51,18 @@ namespace engine
         // Render stuff
         inline std::vector<RenderComponent> get_render_components() { return m_render_components; }
         inline size_t get_num_render_components() { return m_render_components.size(); }
+        inline RenderComponent get_render_component(entity e) { return m_render_components[e.components[component_types::render_component] >> 16]; }
+
 
         // ---
         // Position stuff
         inline std::vector<PositionComponent>& get_position_components() { return m_position_components; }
         inline size_t get_num_position_components() { return m_position_components.size(); }
+        inline PositionComponent& get_position_component(entity e) { return m_position_components[e.components[component_types::position_component] >> 16]; }
+
+        // ---
+        // Rendering
+        void render();
     };
 }
 

@@ -11,7 +11,7 @@ namespace engine
     enum entity_types { base, triangle, square };
 
     const unsigned __int8 NUM_COMPONENTS = 3;
-    const size_t MAX_ENTITIES = 5;
+    const size_t MAX_ENTITIES = 10;
 }
 
 #endif

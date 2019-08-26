@@ -12,10 +12,8 @@
 
 namespace engine
 {
-    EntityManager::EntityManager()
-    {
-        // set all the entity slots to be initially available
-        for (size_t i = 0; i < MAX_ENTITIES; i++) m_available_entity_slots.push(i);
+    EntityManager::EntityManager() {
+        for (size_t i = 0; i < m_available_entity_slots.size(); i++) m_available_entity_slots.set(i);   
     }
 
     unsigned __int32 make_component_id(size_t index, component_types type) { return (index << 16) | type; }
@@ -39,17 +37,26 @@ namespace engine
         e.m_handle.m_counter--;
     }
 
+    size_t EntityManager::next_available_entity_slot()
+    {
+        for (size_t i = 0; i < m_available_entity_slots.size(); i++)
+        {
+            if (m_available_entity_slots[i]) return i;
+        }
+
+        return -1;
+    }
+
     // creates a new entity based on the type of entity to make that is passed in.
     handle EntityManager::add_entity(entity_types entity_type)
     {
-        assert(!m_available_entity_slots.empty());
-        
+        if (!m_available_entity_slots.any()) return handle(0, entity_types::base, -1);
         // --
         // get the next available entity position
-        size_t next_available = m_available_entity_slots.top();
-        m_available_entity_slots.pop();
+        size_t next_available = next_available_entity_slot();
         entity* e = &m_entities[next_available];
         e->m_handle = handle(0, entity_type, next_available);
+        m_available_entity_slots.set(next_available, 0);
 
         // all components have the handle logger for their logger component
         {
@@ -131,7 +138,12 @@ namespace engine
         {
             entity cur_entity = m_entities[i];
             
-            if (cur_entity.m_handle.m_counter < 1) m_available_entity_slots.push(cur_entity.m_handle.m_index);
+            if (cur_entity.m_handle.m_counter < 1) m_available_entity_slots.set(cur_entity.m_handle.m_index);
         }
+    }
+
+    void EntityManager::render()
+    {
+
     }
 }

@@ -42,6 +42,15 @@
     <ClInclude Include="Engine\PositionComponent.h">
       <Filter>Engine</Filter>
     </ClInclude>
+    <ClInclude Include="Components\MeshComponent.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vec4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">

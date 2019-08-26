@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Components\MeshComponent.h" />
     <ClInclude Include="Engine\EngineConsts.h" />
     <ClInclude Include="Engine\Entity.h" />
     <ClInclude Include="Engine\EntityManager.h" />
@@ -122,6 +123,8 @@
     <ClInclude Include="Engine\HandleLogger.h" />
     <ClInclude Include="Engine\PositionComponent.h" />
     <ClInclude Include="Engine\RenderComponent.h" />
+    <ClInclude Include="vec4.h" />
+    <ClInclude Include="Vector2.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>
   <ItemGroup>

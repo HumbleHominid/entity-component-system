@@ -1,13 +1,15 @@
 #ifndef mesh_component_h
 #define mesh_component_h
 
-#include "../Vector3.h"
+#include "../Engine/Vertex.h"
+
+#include <vector>
 
 namespace engine
 {
-    struct Mesh
+    class Mesh
     {
-
+        std::vector<Vertex> verticies;
     };
 }
 
